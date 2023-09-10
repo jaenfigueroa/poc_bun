@@ -1,0 +1,41 @@
+name: mi-workflow-usando-bun
+
+on:
+  push:
+    tags:
+      - 'main*'
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dentrar en el proyecto
+        run: cd three
+
+      - name: Usar actions
+        uses: actions/checkout@v3
+
+      - name: Usar bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Establecer node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Buildear proyecto
+        run: |
+          bun install
+          bun build
+
+      - name: Deployar proyecto en GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          destination_dir: three
