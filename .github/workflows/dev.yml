@@ -1,0 +1,43 @@
+name: mi-workflow-usando-bun
+
+on:
+  push:
+    tags:
+      - 'main*'
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Usar actions
+        uses: actions/checkout@v3
+
+      - name: Cambiar al directorio de trabajo deseado
+        run: cd three
+        shell: bash
+
+      - name: Usar bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Imprimir la ruta actual
+        run: |
+          current_directory=$(pwd)
+          echo "La ruta actual es: $current_directory"
+
+      - name: Buildear proyecto
+        run: |
+          bun install
+          bun run build
+
+      - name: Deployar proyecto en GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          destination_dir: three
+          # publish_branch: your-branch  # default: gh-pages
