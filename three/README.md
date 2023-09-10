@@ -1,3 +1,9 @@
+## References
+
+- [Bun docs](https://bun.sh/)
+- [Bun workflows](https://bun.sh/guides/runtime/cicd)
+- [Editar basepath en vite config](https://vitejs.dev/config/shared-options.html#base)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

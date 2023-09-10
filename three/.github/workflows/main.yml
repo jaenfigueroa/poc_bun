@@ -11,11 +11,14 @@ permissions:
 
 jobs:
   build:
+    environment: main
+    env:
+      BASE_PATH: ${{ vars.BASE_PATH }} # agregar el nombre del repositorio en la ruta base
     name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3 # instalar actions
-      - uses: oven-sh/setup-bun@v1 # instalar bun
+      - uses: oven-sh/setup-bun@v1 # instalar bun para workflows
 
       - name: Buildear proyecto
         run: |
@@ -23,9 +26,9 @@ jobs:
           bun run build
 
       - name: Deployar proyecto en GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v3 # instalar peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
-          destination_dir: three
-          # publish_branch: your-branch  # default: gh-pages
+          publish_dir: dist # carpeta a elegir
+          # destination_dir: three # subruta de destino
+          # publish_branch: your-branch # default branch: gh-pages
