@@ -14,20 +14,8 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - name: Usar actions
-        uses: actions/checkout@v3
-
-      - name: Cambiar al directorio de trabajo deseado
-        run: cd three
-        shell: bash
-
-      - name: Usar bun
-        uses: oven-sh/setup-bun@v1
-
-      - name: Imprimir la ruta actual
-        run: |
-          current_directory=$(pwd)
-          echo "La ruta actual es: $current_directory"
+      - uses: actions/checkout@v3 # instalar actions
+      - uses: oven-sh/setup-bun@v1 # instalar bun
 
       - name: Buildear proyecto
         run: |
